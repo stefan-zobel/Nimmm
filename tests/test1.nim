@@ -7,8 +7,9 @@
 
 import std/complex
 import unittest
-
 import Nimmm
+
+
 test "[2 x 2] * [2 x 2] float32 test for []= and *":
   var m1 = newMatrix[float32](2, 2)
   var m2 = newMatrix[float32](2, 2)

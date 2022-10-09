@@ -9,11 +9,14 @@ type
     cols: int
     data: seq[T]
 
-proc newMatrix*[T: ME](rows: int, cols: int) : Matrix[T] =
+proc idx(row, col, numRows: int): int {. inline .} =
+  col * numRows + row
+
+proc newMatrix*[T: ME](rows, cols: int): Matrix[T] =
   result = Matrix[T](rows: rows, cols: cols)
   result.data = newSeq[T](rows * cols)
 
-proc newMatrix[T: ME](rows: int, cols: int, a: seq[T]) : Matrix[T] =
+proc newMatrix[T: ME](rows, cols: int, a: seq[T]): Matrix[T] =
   result = Matrix[T](rows: rows, cols: cols)
   result.data = a
 
@@ -27,4 +30,4 @@ proc `*`*[T: ME](a, b: Matrix[T]): Matrix[T]  =
   result = newMatrix[T](m, n, mul[T](m, n, k, a.data, b.data))
 
 proc `[]=`*[T: ME](m: var Matrix[T], i, j: int, val: T) =
-  m.data[j * m.rows + i] = val
+  m.data[idx(i, j, m.rows)] = val
