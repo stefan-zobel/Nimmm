@@ -8,5 +8,19 @@
 import unittest
 
 import Nimmm
-test "can add":
-  check add(5, 5) == 10
+test "first for test []= and *":
+  var m1 = newMatrix[float32](2, 2)
+  var m2 = newMatrix[float32](2, 2)
+
+  m1[0, 0] = 55
+  m1[0, 1] = 66
+  m1[1, 0] = 77
+  m1[1, 1] = 88
+
+  m2[0, 0] = 99
+  m2[0, 1] = 22
+  m2[1, 0] = 11
+  m2[1, 1] = 33
+
+  let c = m1 * m2
+  echo c
