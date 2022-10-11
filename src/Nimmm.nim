@@ -20,7 +20,7 @@ proc matrix*[T: ME](rows, cols: int): Matrix[T] =
 
 proc matrix[T: ME](rows, cols: int, a: seq[T]): Matrix[T] =
   result = Matrix[T](rows: rows, cols: cols)
-  result.data = a
+  shallowCopy(result.data, a)
 
 proc dim*[T: ME](a: Matrix[T]): tuple[rows, cols: int] =
   (a.rows, a.cols)
