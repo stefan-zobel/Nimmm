@@ -14,13 +14,12 @@ type
 proc idx(row, col, numRows: int): int {. inline .} =
   col * numRows + row
 
-proc matrix*[T: ME](rows, cols: int): Matrix[T] =
-  result = Matrix[T](rows: rows, cols: cols)
-  result.data = newSeq[T](rows * cols)
-
-proc matrix[T: ME](rows, cols: int, a: seq[T]): Matrix[T] =
+proc create[T: ME](rows, cols: int, a: seq[T]): Matrix[T] =
   result = Matrix[T](rows: rows, cols: cols)
   shallowCopy(result.data, a)
+
+proc matrix*[T: ME](rows, cols: int): Matrix[T] =
+  create[T](rows, cols, newSeq[T](rows * cols))
 
 proc dim*[T: ME](a: Matrix[T]): tuple[rows, cols: int] =
   (a.rows, a.cols)
@@ -35,7 +34,7 @@ proc `*`*[T: ME](a, b: Matrix[T]): Matrix[T]  =
   let m = a.rows
   let n = b.cols
   let k = a.cols
-  result = matrix[T](m, n, mul[T](m, n, k, a.data, b.data))
+  result = create[T](m, n, mul[T](m, n, k, a.data, b.data))
 
 proc `[]`*[T: ME](a: Matrix[T], i, j: int): T {. inline .} =
   a.data[idx(i, j, a.rows)]
