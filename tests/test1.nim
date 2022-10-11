@@ -11,8 +11,8 @@ import Nimmm
 
 
 test "[2 x 2] * [2 x 2] float32 test for []= and *":
-  var m1 = newMatrix[float32](2, 2)
-  var m2 = newMatrix[float32](2, 2)
+  var m1 = matrix[float32](2, 2)
+  var m2 = matrix[float32](2, 2)
 
   m1[0, 0] = 55
   m1[0, 1] = 66
@@ -28,8 +28,8 @@ test "[2 x 2] * [2 x 2] float32 test for []= and *":
   echo c
 
 test "[2 x 2] * [2 x 1] Complex64 test for []= and *":
-  var m1 = newMatrix[Complex64](2, 2)
-  var m2 = newMatrix[Complex64](2, 1)
+  var m1 = matrix[Complex64](2, 2)
+  var m2 = matrix[Complex64](2, 1)
 
   m1[0, 0] = complex64(55, -1)
   m1[0, 1] = complex64(66, 1)
