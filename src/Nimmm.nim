@@ -1,5 +1,5 @@
 import nimmkl/[common, mulColMajor]
-import std/complex
+import std/[complex, random]
 
 # ME = alias for matrix element type
 type
@@ -37,6 +37,21 @@ proc matrixC64*(rows, cols: int): MatrixC64 =
 
 proc matrixC32*(rows, cols: int): MatrixC32 =
   matrix[Complex32](rows, cols)
+
+proc one[T](): T =
+  when T is float64:
+    result = 1.0'f64
+  when T is float32:
+    result = 1.0'f32
+  when T is Complex64:
+    result = complex64(1.0'f64)
+  when T is Complex32:
+    result = complex32(1.0'f32)
+
+proc eye*[T: ME](n: int): Matrix[T] =
+  result = matrix[T](n, n)
+  for i in countup(0, n - 1):
+    result[i, i] = one[T]()
 
 proc dim*[T: ME](a: Matrix[T]): tuple[rows, cols: int] =
   (a.rows, a.cols)

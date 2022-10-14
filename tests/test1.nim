@@ -42,3 +42,9 @@ test "[2 x 2] * [2 x 1] Complex64 test for []= and *":
   let c = m1 * m2
   echo c
 
+test "testing eye()":
+  discard eye[float32](2)
+  discard eye[float64](2)
+  discard eye[Complex32](2)
+  discard eye[Complex64](2)
+
