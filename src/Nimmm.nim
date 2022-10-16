@@ -1,6 +1,12 @@
 import nimmkl/[common, mulColMajor]
 import std/[complex, random]
 
+proc moduleInit() =
+  random.randomize()
+
+moduleInit()
+
+
 # ME = alias for matrix element type
 type
   ME* = SomeElementType
@@ -52,6 +58,18 @@ proc eye*[T: ME](n: int): Matrix[T] =
   result = matrix[T](n, n)
   for i in countup(0, n - 1):
     result[i, i] = one[T]()
+
+proc randNormal*[T: ME](rows, cols: int, mu : float = 0.0; sigma : float = 1.0): Matrix[T] =
+  result = matrix[T](rows, cols)
+  when T is SomeFloat:
+    for i in countup(0, (rows * cols) - 1):
+      result.data[i] = T(random.gauss(mu, sigma))
+  when T is Complex64:
+    for i in countup(0, (rows * cols) - 1):
+      result.data[i] = complex64(random.gauss(mu, sigma), random.gauss(mu, sigma))
+  when T is Complex32:
+    for i in countup(0, (rows * cols) - 1):
+      result.data[i] = complex32(random.gauss(mu, sigma), random.gauss(mu, sigma))
 
 proc dim*[T: ME](a: Matrix[T]): tuple[rows, cols: int] =
   (a.rows, a.cols)

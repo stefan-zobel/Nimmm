@@ -48,3 +48,13 @@ test "testing eye()":
   discard eye[Complex32](2)
   discard eye[Complex64](2)
 
+test "testing randNormal()":
+  let m1 : Matrix32 = randNormal[float32](3, 2)
+  echo m1
+  let m2 : Matrix64 = randNormal[float64](3, 2)
+  echo m2
+  let m3 : MatrixC32 = randNormal[Complex32](3, 2)
+  echo m3
+  let m4 : MatrixC64 = randNormal[Complex64](3, 2)
+  echo m4
+
